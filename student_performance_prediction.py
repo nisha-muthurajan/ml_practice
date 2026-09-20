@@ -22,7 +22,7 @@ df=pd.DataFrame(data)
 x=df[["Study Hours","Attendance","Assignments","Previous Score"]]
 y=df["Final Score"]
 
-x_train,x_test,y_train,y_test=train_test_split(x,y)
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.5,random_state=42)
 
 model=LinearRegression()
 model.fit(x_train,y_train)
@@ -35,3 +35,12 @@ print("Predicted values:",y_pred)
 print("R2 score:",r2_score(y_test,y_pred))
 print("MAE:",mean_absolute_error(y_test,y_pred))
 
+plt.scatter(y_test,y_pred)
+plt.plot(
+    [y_test.min(),y_test.max()],
+    [y_test.min(),y_test.max()]
+)
+plt.xlabel("Actual values")
+plt.ylabel("Predicted values")
+plt.title("Comparision")
+plt.show()
